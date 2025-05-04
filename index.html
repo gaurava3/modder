@@ -41,6 +41,8 @@
       display: flex;
       gap: 10px;
       margin: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .custom-button {
@@ -64,7 +66,7 @@
 
   <img class="ad-banner" src="https://your-ad-image-url.com/top.jpg" alt="Top Ad">
 
-  <div class="player-container" id="videoBox">
+  <div class="player-container">
     <iframe id="videoFrame" src="https://ipladjustble.pages.dev/" allowfullscreen></iframe>
   </div>
 
@@ -77,13 +79,20 @@
 
   <script>
     function goFullscreen() {
-      const elem = document.getElementById("videoBox");
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
+      const iframe = document.getElementById("videoFrame");
+
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+      }
+
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(function (err) {
+          console.warn("Orientation lock failed:", err);
+        });
       }
     }
   </script>
